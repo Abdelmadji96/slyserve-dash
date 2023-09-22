@@ -1,0 +1,26 @@
+.patient-search {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  height: 40px;
+  border: 1px solid red;
+  border-radius: 10px;
+}
+
+.patient-search input {
+  width: 90%;
+  border: none;
+  outline: none;
+  padding-left: 20px;
+}
+.patient-search-icon {
+  color: red !important;
+}
+.patient-add-icon {
+  color: red !important;
+  font-size: 40px !important;
+}
+.icon-btn {
+  padding: 2px !important;
+}

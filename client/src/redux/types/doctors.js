@@ -1,0 +1,4 @@
+export const DOCTORS_STATE = {
+    GET_DOCTORS: "GET_DOCTORS",
+    SET_DOCTORS: "SET_DOCTORS",
+  };

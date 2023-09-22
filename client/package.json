@@ -1,0 +1,99 @@
+{
+  "name": "slyserve",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://127.0.0.1:5000",
+  "dependencies": {
+    "@date-io/date-fns": "^1.2.0",
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "@material-ui/core": "^4.11.4",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.60",
+    "@material-ui/pickers": "^3.3.10",
+    "@mui/material": "^5.0.0",
+    "@react-google-maps/api": "^2.2.0",
+    "@react-pdf/renderer": "2.1.0",
+    "@react-pdf/font": "2.2.0",
+    "@testing-library/jest-dom": "^5.12.0",
+    "@testing-library/react": "^11.2.6",
+    "@testing-library/user-event": "^12.8.3",
+    "axios": "^0.21.1",
+    "bootstrap": "^4.3.1",
+    "chart.js": "^3.5.1",
+    "date-fns": "^2.23.0",
+    "file-type": "^16.5.3",
+    "formik": "^2.2.9",
+    "history": "^5.0.0",
+    "i18next": "^20.3.2",
+    "i18next-browser-languagedetector": "^6.1.2",
+    "i18next-http-backend": "^1.2.6",
+    "image-to-base64": "^2.2.0",
+    "jsbarcode": "^3.11.4",
+    "jsonwebtoken": "^8.5.1",
+    "jspdf": "2.3.1",
+    "mdi": "^2.2.43",
+    "moment": "^2.29.1",
+    "nprogress": "^0.2.0",
+    "prop-types": "^15.7.2",
+    "query-string": "^7.0.1",
+    "react": "^17.0.2",
+    "react-chartjs-2": "^3.0.4",
+    "react-dom": "^17.0.2",
+    "react-external-link": "^1.2.1",
+    "react-feather": "^2.0.8",
+    "react-file-base64": "^1.0.3",
+    "react-google-recaptcha": "^2.1.0",
+    "react-helmet": "^6.1.0",
+    "react-html-table-to-excel": "^2.0.0",
+    "react-i18next": "^11.11.0",
+    "react-perfect-scrollbar": "^1.5.8",
+    "react-redux": "^7.2.4",
+    "react-router-dom": "^5.3.0",
+    "react-scripts": "4.0.3",
+    "react-spinners": "^0.11.0",
+    "react-to-pdf": "0.0.14",
+    "redux": "^4.1.0",
+    "redux-thunk": "^2.3.0",
+    "twilio-video": "^2.10.0",
+    "web-vitals": "^1.1.2",
+    "yup": "^0.32.9"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.6.1",
+    "browser-sync": "^2.26.7",
+    "html-loader": "^3.1.0",
+    "merge-stream": "^2.0.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "overrides": {
+    "@react-pdf/font": "2.2.0",
+    "@react-pdf/pdfkit": "2.1.0"
+  },
+  "resolutions": {
+    "@react-pdf/font": "2.2.0"
+  }
+}

@@ -1,0 +1,137 @@
+.menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background: white;
+  z-index: 20;
+  height: 100vh;
+  padding: 10px 0px;
+  width: 300px;
+  transform: translateX(120%);
+  transition: transform 0.5s ease-in-out;
+}
+
+.menu-show {
+  transform: translateX(0);
+}
+
+.menu-small {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background: white;
+  z-index: 20;
+  height: 100vh;
+  padding: 10px 0px;
+  width: 300px;
+  transform: translateX(120%);
+  transition: transform 0.5s ease-in-out;
+}
+
+.menu-small-show {
+  transform: translateX(0);
+}
+
+.menu-up {
+  overflow-y: hidden;
+}
+
+.menu-items {
+  display: flex;
+  flex-direction: column;
+}
+.menu-items-ar {
+  display: flex;
+  flex-direction: column;
+  direction: rtl !important;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 20px 10px;
+  cursor: pointer;
+}
+.menu-item:hover > * {
+  color: red !important;
+}
+
+.menu-login {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.menu-icon {
+  margin: 0 5px 0 5px;
+}
+.nav-menu {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item {
+  margin-right: 30px;
+  cursor: pointer;
+  transition: color 0.2s linear;
+  padding-bottom: 5px;
+}
+
+.nav-item:hover {
+  color: red;
+}
+
+.language {
+  margin-bottom: 10px;
+}
+
+.nav-menu-hide {
+  opacity: 0;
+}
+.nav-active {
+  color: red !important;
+  border-bottom: 2px solid red !important;
+}
+
+.active-link {
+  color: red;
+}
+.navbar-small {
+  display: none !important;
+}
+
+.top-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 0 15px;
+}
+
+@media only screen and (max-width: 980px) {
+  .navbar-small {
+    display: flex !important;
+  }
+  .navbar-big {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .menu-item {
+    margin: 10px 5px;
+  }
+}
+
+@media only screen and (max-width: 680px) {
+  .logo-img {
+    height: 50px !important;
+    margin-left: 0 !important;
+  }
+  .top-menu {
+    margin: 0;
+  }
+}

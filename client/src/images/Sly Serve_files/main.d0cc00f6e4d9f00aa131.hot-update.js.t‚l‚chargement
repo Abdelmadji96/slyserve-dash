@@ -1,0 +1,342 @@
+webpackHotUpdate("main",{
+
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./src/App.css":
+false,
+
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./src/components/Home/home.css":
+false,
+
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./src/components/Inscription/inscription.css":
+false,
+
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./src/components/NavBar/navbar.css":
+false,
+
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./src/components/Recherche/recherche.css":
+false,
+
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./src/components/RendezVous/rendezvous.css":
+false,
+
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./src/components/SearchBox/searchbox.css":
+false,
+
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./src/components/professionnel/MesPatients/mespatients.css":
+false,
+
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./src/index.css":
+false,
+
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./src/style.css":
+false,
+
+/***/ "./src/App.css":
+false,
+
+/***/ "./src/App.js":
+false,
+
+/***/ "./src/Routes/AbonneFormule1Route.js":
+false,
+
+/***/ "./src/Routes/AbonneFormule2Route.js":
+false,
+
+/***/ "./src/Routes/ParticulierRoute.js":
+false,
+
+/***/ "./src/Routes/ProfessionnelRoute.js":
+false,
+
+/***/ "./src/ScrollToTp.js":
+false,
+
+/***/ "./src/actions/medecin.js":
+false,
+
+/***/ "./src/actions/professionnel.actions.js":
+false,
+
+/***/ "./src/actions/professionnel.types.js":
+false,
+
+/***/ "./src/actions/user.actions.js":
+false,
+
+/***/ "./src/actions/user.types.js":
+false,
+
+/***/ "./src/components/Connexion/ConnexionStep1.js":
+false,
+
+/***/ "./src/components/Connexion/ConnexionStep2.js":
+false,
+
+/***/ "./src/components/Home/Home.js":
+false,
+
+/***/ "./src/components/Home/home.css":
+false,
+
+/***/ "./src/components/Inscription/InscriptionStep1.js":
+false,
+
+/***/ "./src/components/Inscription/InscriptionStep2.js":
+false,
+
+/***/ "./src/components/Inscription/inscription.css":
+false,
+
+/***/ "./src/components/NavBar/Navbar.js":
+false,
+
+/***/ "./src/components/NavBar/navbar.css":
+false,
+
+/***/ "./src/components/Payment/ConfirmPayment.js":
+false,
+
+/***/ "./src/components/Payments.js":
+false,
+
+/***/ "./src/components/Recherche/Map.js":
+false,
+
+/***/ "./src/components/Recherche/RechercheAmbulance.js":
+false,
+
+/***/ "./src/components/Recherche/RechercheDonneurDeSang.js":
+false,
+
+/***/ "./src/components/Recherche/RechercheHopital.js":
+false,
+
+/***/ "./src/components/Recherche/RecherchePharmacie.js":
+false,
+
+/***/ "./src/components/Recherche/RecherchePraticien.js":
+false,
+
+/***/ "./src/components/Recherche/recherche.css":
+false,
+
+/***/ "./src/components/RechercheType/RechercheType.js":
+false,
+
+/***/ "./src/components/RendezVous/AvailableRDV.js":
+false,
+
+/***/ "./src/components/RendezVous/Map.js":
+false,
+
+/***/ "./src/components/RendezVous/RendezVous.js":
+false,
+
+/***/ "./src/components/RendezVous/rendezvous.css":
+false,
+
+/***/ "./src/components/SearchBox/SearchBoxMedecin.js":
+false,
+
+/***/ "./src/components/SearchBox/Searchbox.js":
+false,
+
+/***/ "./src/components/SearchBox/searchbox.css":
+false,
+
+/***/ "./src/components/Video/Participant.js":
+false,
+
+/***/ "./src/components/Video/Room.js":
+false,
+
+/***/ "./src/components/Video/VideoChat.js":
+false,
+
+/***/ "./src/components/particulier/Login/Login.js":
+false,
+
+/***/ "./src/components/particulier/MesDocuments/MesDocuments.js":
+false,
+
+/***/ "./src/components/particulier/MesInformations/MesInformations.js":
+false,
+
+/***/ "./src/components/particulier/MesProches/MesProches.js":
+false,
+
+/***/ "./src/components/particulier/MesRendezVous/MesRendezVous.js":
+false,
+
+/***/ "./src/components/particulier/Register/Register.js":
+false,
+
+/***/ "./src/components/particulier/Register/RegisterParticulierIdentite.js":
+false,
+
+/***/ "./src/components/particulier/Register/RegisterSuccess.js":
+false,
+
+/***/ "./src/components/particulier/Register/Steps.js":
+false,
+
+/***/ "./src/components/professionnel/Abonnement/Abonnement.js":
+false,
+
+/***/ "./src/components/professionnel/Abonnement/Abonner.js":
+false,
+
+/***/ "./src/components/professionnel/Abonnement/Documents/FacturePDF.js":
+false,
+
+/***/ "./src/components/professionnel/Abonnement/MonAbonnement.js":
+false,
+
+/***/ "./src/components/professionnel/Fichiers/CompteRendu.js":
+false,
+
+/***/ "./src/components/professionnel/Fichiers/Ordonnance.js":
+false,
+
+/***/ "./src/components/professionnel/Fichiers/PDF.js":
+false,
+
+/***/ "./src/components/professionnel/Fichiers/PDFCompteRendu.js":
+false,
+
+/***/ "./src/components/professionnel/HomePro/HomePro.js":
+false,
+
+/***/ "./src/components/professionnel/MaFicheProfessionnel/MaFicheProfessionnel.js":
+false,
+
+/***/ "./src/components/professionnel/MesPatients/MesPatients.js":
+false,
+
+/***/ "./src/components/professionnel/MesPatients/mespatients.css":
+false,
+
+/***/ "./src/components/professionnel/MonPlanning/MonPlanning.js":
+false,
+
+/***/ "./src/components/professionnel/MonPlanning/RdvDetails.js":
+false,
+
+/***/ "./src/components/professionnel/PofessionnelRegister/Ambulance/RegisterAmbulance.js":
+false,
+
+/***/ "./src/components/professionnel/PofessionnelRegister/Hopital/RegisterHopital.js":
+false,
+
+/***/ "./src/components/professionnel/PofessionnelRegister/Labo/RegsiterLabo.js":
+false,
+
+/***/ "./src/components/professionnel/PofessionnelRegister/Map.js":
+false,
+
+/***/ "./src/components/professionnel/PofessionnelRegister/Pharmacie/RegisterPharmacie.js":
+false,
+
+/***/ "./src/components/professionnel/PofessionnelRegister/PorfessionnelRegister.js":
+false,
+
+/***/ "./src/components/professionnel/PofessionnelRegister/RegisterSuccessPro.js":
+false,
+
+/***/ "./src/components/professionnel/PofessionnelRegister/RegistreCommerce.js":
+false,
+
+/***/ "./src/components/professionnel/PofessionnelRegister/StepsPro.js":
+false,
+
+/***/ "./src/components/professionnel/ProfessionnelLogin/ProfessionnelLogin.js":
+false,
+
+/***/ "./src/images/logo-square.svg":
+false,
+
+/***/ "./src/images/sly_update_1.png":
+false,
+
+/***/ "./src/index.css":
+false,
+
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+/*! no exports provided */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: D:\\dev\\react\\slyserve\\client\\src\\index.js: Unexpected token (11:0)\n\n\u001b[0m \u001b[90m  9 |\u001b[39m \u001b[36mimport\u001b[39m store \u001b[36mfrom\u001b[39m \u001b[32m\"./store\"\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \u001b[36mimport\u001b[39m { \u001b[33mProvider\u001b[39m } \u001b[36mfrom\u001b[39m \u001b[32m\"react-redux\"\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 11 |\u001b[39m \u001b[33m=\u001b[39m\u001b[33mReactDOM\u001b[39m\u001b[33m.\u001b[39mrender(\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 12 |\u001b[39m   \u001b[33m<\u001b[39m\u001b[33mProvider\u001b[39m store\u001b[33m=\u001b[39m{store}\u001b[33m>\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 13 |\u001b[39m     \u001b[33m<\u001b[39m\u001b[33mThemeProvider\u001b[39m theme\u001b[33m=\u001b[39m{theme}\u001b[33m>\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 14 |\u001b[39m       \u001b[33m<\u001b[39m\u001b[33mBrowserRouter\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n    at Object._raise (D:\\dev\\react\\slyserve\\client\\node_modules\\@babel\\parser\\lib\\index.js:807:17)\n    at Object.raiseWithData (D:\\dev\\react\\slyserve\\client\\node_modules\\@babel\\parser\\lib\\index.js:800:17)\n    at Object.raise (D:\\dev\\react\\slyserve\\client\\node_modules\\@babel\\parser\\lib\\index.js:761:17)\n    at Object.unexpected (D:\\dev\\react\\slyserve\\client\\node_modules\\@babel\\parser\\lib\\index.js:9931:16)\n    at Object.parseExprAtom (D:\\dev\\react\\slyserve\\client\\node_modules\\@babel\\parser\\lib\\index.js:11333:20)\n    at Object.parseExprAtom (D:\\dev\\react\\slyserve\\client\\node_modules\\@babel\\parser\\lib\\index.js:5216:20)\n    at Object.parseExprSubscripts (D:\\dev\\react\\slyserve\\client\\node_modules\\@babel\\parser\\lib\\index.js:10904:23)\n    at Object.parseUpdate (D:\\dev\\react\\slyserve\\client\\node_modules\\@babel\\parser\\lib\\index.js:10884:21)\n    at Object.parseMaybeUnary (D:\\dev\\react\\slyserve\\client\\node_modules\\@babel\\parser\\lib\\index.js:10862:23)\n    at Object.parseExprOps (D:\\dev\\react\\slyserve\\client\\node_modules\\@babel\\parser\\lib\\index.js:10719:23)");
+
+/***/ }),
+
+/***/ "./src/reducers/index.js":
+false,
+
+/***/ "./src/reducers/medecin.js":
+false,
+
+/***/ "./src/reducers/professionnel.reducer.js":
+false,
+
+/***/ "./src/reducers/user.reducers.js":
+false,
+
+/***/ "./src/store.js":
+false,
+
+/***/ "./src/style.css":
+false,
+
+/***/ "./src/theme.js":
+false,
+
+/***/ 10:
+false,
+
+/***/ 11:
+false,
+
+/***/ 12:
+false,
+
+/***/ 13:
+false,
+
+/***/ 14:
+false,
+
+/***/ 15:
+false,
+
+/***/ 16:
+false,
+
+/***/ 2:
+false,
+
+/***/ 3:
+false,
+
+/***/ 4:
+false,
+
+/***/ 5:
+false,
+
+/***/ 6:
+false,
+
+/***/ 7:
+false,
+
+/***/ 8:
+false,
+
+/***/ 9:
+false
+
+})
+//# sourceMappingURL=main.d0cc00f6e4d9f00aa131.hot-update.js.map

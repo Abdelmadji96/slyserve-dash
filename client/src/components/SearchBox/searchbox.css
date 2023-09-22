@@ -1,0 +1,31 @@
+.search-box {
+  border: 2px solid red;
+  border-radius: 5px 0px 0px 5px;
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+}
+.search-2 {
+  border-left: 2px solid red;
+}
+.search-btn {
+  text-align: center;
+  background-color: red;
+  padding: 10px;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  transition: all 0.2s linear;
+}
+
+.search-btn:hover {
+  background-color: rgb(235, 0, 0);
+}

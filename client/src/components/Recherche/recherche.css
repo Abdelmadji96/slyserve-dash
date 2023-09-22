@@ -1,0 +1,8 @@
+.card-content {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.card-title {
+  margin-bottom: 30px !important;
+}

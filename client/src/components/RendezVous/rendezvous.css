@@ -1,0 +1,54 @@
+.btn-rdv-selected {
+  background-color: red !important;
+  color: #fff !important;
+}
+
+.btn-rdv {
+  margin: 5px 5px !important;
+  width: 100px !important;
+}
+
+.hidden {
+  display: none;
+}
+.rdv-container {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+}
+.btn-label {
+  text-align: center;
+  color: red;
+  font-size: 20px;
+  border: 1px solid red;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  width: 100%;
+}
+.disable {
+  text-align: center;
+  background-color: rgba(199, 199, 199, 0.267);
+  color: rgb(71, 71, 71);
+  cursor: default;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
+}
+.rdv-available {
+  margin: 10px;
+}
+
+.hidden:checked + .btn-label {
+  background-color: red;
+  color: #fff;
+}
+
+@media only screen and (max-width: 1200px) {
+  .btn-label {
+    width: 28%;
+    font-size: 15px;
+  }
+}
