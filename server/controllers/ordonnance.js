@@ -57,7 +57,7 @@ export const getMedicaments = (ordonnance, callback) => {
 
 export const getOdonnances = (req, res) => {
   let query =
-    "Select ordonnance.id as ordonnance_id,code_barre,fichier,date_ordonnance,medecin.nom as nom_medecin,medecin.prenom as prenom_medecin,medecin.nom_de_rue as adresse, specialite.nom_fr as specialite from ordonnance left join medecin on medecin.id = ordonnance.medecin_id left join specialite on specialite.id = medecin.specialite_id where ordonnance.patient_id = ?";
+    "Select ordonnance.id as ordonnance_id,code_barre,fichier,date_ordonnance,medecin.nom as nom_medecin,medecin.prenom as prenom_medecin,medecin.nomRue as adresse, specialite.nom_fr as specialite from ordonnance left join medecin on medecin.id = ordonnance.medecin_id left join specialite on specialite.id = medecin.specialite_id where ordonnance.patient_id = ?";
   connection.query(query, [req.user.id], (err, ordonnances) => {
     if (err) res.status(403).json({ error: err });
     else {

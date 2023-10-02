@@ -1,20 +1,13 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
-
 import { connect } from "react-redux";
 
 const ParticulierRoute = ({ component: Component, ...rest }) => {
-  //const { login } = useSelector((state) => state.loginParticulierReducer);
+  const currentUser = localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
   return (
     <Route
       {...rest}
-      render={
-        (props) =>
-          //login
-          rest.user ? <Component {...props}></Component> : <Redirect to="/" />
-        //rest.user ? <Component {...props}></Component> : <Redirect to="/" />
-      }
+      render={(props) => currentUser ? <Component {...props}></Component> : <Redirect to="/" />}
     />
   );
 };

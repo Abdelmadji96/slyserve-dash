@@ -34,16 +34,17 @@ const MesInformations = (props) => {
   //   loading: loadingProfile,
   //   success: successProfile,
   // } = useSelector((state) => state.particulierGetProfileReducer);
-
-  const [nomRue, setNomRue] = useState("");
-  const [wilayaId, setWilayaId] = useState(props.user.wilaya_id);
-  const [communeId, setCommuneId] = useState(props.user.commune_id);
-  const [email, setEmail] = useState(props.user.email);
+  const user = localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
+  console.log('useruseruser', user);
+  const [nomRue, setNomRue] = useState(user?.nomRue);
+  const [wilayaId, setWilayaId] = useState(user?.wilaya);
+  const [communeId, setCommuneId] = useState(user?.commune);
+  const [email, setEmail] = useState(user?.email);
   const [password, setPassword] = useState("");
-  const nom = props.user ? props.user.nom : "";
-  const prenom = props.user ? props.user.prenom : "";
-  const telephone = props.user ? props.user.telephone : "";
-  const date_de_naissance = props.user ? props.user.date_de_naissance : "";
+  const nom = user ? user.nom : "";
+  const prenom = user ? user.prenom : "";
+  const telephone = user ? user.numeroTelephone : "";
+  const date_de_naissance = user ? user.dateN : "";
 
   const [wilayas, setWilayas] = useState([]);
   const [communes, setCommunes] = useState([]);
@@ -96,17 +97,12 @@ const MesInformations = (props) => {
     }
   };
 
-  useEffect(
-    () => {
-      getWilayas();
-      getCommunes(wilayaId)
-      // dispatch(getWilaya());
-      // dispatch(getCommunes(wilayaId));
-    },
-    [
-      /*dispatch, wilayaId*/
-    ]
-  );
+  useEffect(() => {
+    getWilayas();
+    getCommunes(wilayaId)
+    // dispatch(getWilaya());
+    // dispatch(getCommunes(wilayaId));
+  }, [wilayaId]);
 
   // const dispatch = useDispatch();
   // const {
@@ -160,6 +156,7 @@ const MesInformations = (props) => {
       password,
     };
     //dispatch(particulierUpdateProfile(particulier));
+    console.log('handleSubmit', particulier);
   };
   const { t, i18n } = useTranslation();
   return (
@@ -251,7 +248,7 @@ const MesInformations = (props) => {
                     fullWidth
                     value={nomRue}
                     onChange={(e) => setNomRue(e.target.value)}
-                    //disabled={loadingUpdateProfile || successUpdateProfile}
+                  //disabled={loadingUpdateProfile || successUpdateProfile}
                   />
                   <Grid container spacing={2} style={{ marginTop: "10px" }}>
                     <Grid item xs={6}>
@@ -270,17 +267,17 @@ const MesInformations = (props) => {
                           setWilayaId(e.target.value);
                           getCommunes(e.target.value);
                         }}
-                        //disabled={loadingUpdateProfile || successUpdateProfile}
+                      //disabled={loadingUpdateProfile || successUpdateProfile}
                       >
                         {
                           //successWilaya
                           wilayas.length > 0 &&
-                            wilayas.map((w) => (
-                              <MenuItem value={w.id} key={w.id}>
-                                {w.id}-
-                                {i18n.language == "ar" ? w.nom_ar : w.nom_fr}
-                              </MenuItem>
-                            ))
+                          wilayas.map((w) => (
+                            <MenuItem value={w.id} key={w.id}>
+                              {w.id}-
+                              {i18n.language == "ar" ? w.nom_ar : w.nom_fr}
+                            </MenuItem>
+                          ))
                         }
                       </Select>
                     </Grid>
@@ -297,7 +294,7 @@ const MesInformations = (props) => {
                         required
                         value={communeId}
                         onChange={(e) => setCommuneId(e.target.value)}
-                        //disabled={loadingUpdateProfile || successUpdateProfile}
+                      //disabled={loadingUpdateProfile || successUpdateProfile}
                       >
                         {
                           //successCommune
@@ -330,7 +327,7 @@ const MesInformations = (props) => {
                     placeholder={t("email")}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    //disabled={loadingUpdateProfile || successUpdateProfile}
+                  //disabled={loadingUpdateProfile || successUpdateProfile}
                   />
                 </div>
 
@@ -347,7 +344,7 @@ const MesInformations = (props) => {
                     placeholder={t("password")}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    //disabled={loadingUpdateProfile || successUpdateProfile}
+                  //disabled={loadingUpdateProfile || successUpdateProfile}
                   />
                 </div>
               </CardContent>
@@ -362,7 +359,7 @@ const MesInformations = (props) => {
                   <button
                     className="btn btn-outline-danger"
                     onClick={handleSubmit}
-                    //disabled={loadingUpdateProfile || successUpdateProfile}
+                  //disabled={loadingUpdateProfile || successUpdateProfile}
                   >
                     {t("save_btn")}
                   </button>

@@ -215,10 +215,10 @@ export const updateAdresse = (req, res) => {
   try {
     let medecin = req.body;
     let query =
-      "Update medecin set nom_de_rue = ? , wilaya_id = ? , commune_id = ?  where id = ?";
+      "Update medecin set nomRue = ? , wilaya = ? , commune = ?  where id = ?";
     connection.query(
       query,
-      [medecin.nom_de_rue, medecin.wilaya_id, medecin.commune_id, req.user.id],
+      [medecin.nomRue	, medecin.wilaya, medecin.commune, req.user.id],
       (err, results) => {
         if (err) res.status(403).json({ error: err.errno });
         else res.status(201).json({ message: "success" });
@@ -501,13 +501,13 @@ export const updateProfile = (req, res) => {
     const medecin = req.body;
     if (medecin.mot_de_passe) {
       const mdp = bcrypt.hashSync(medecin.mot_de_passe, 10);
-      let query = `Update medecin set nom_de_rue = ? , wilaya_id = ? , commune_id = ? , latitude = ? , longitude = ? , email = ? , mot_de_passe = ? where id = ?`;
+      let query = `Update medecin set nomRue = ? , wilaya = ? , commune = ? , latitude = ? , longitude = ? , email = ? , mot_de_passe = ? where id = ?`;
       connection.query(
         query,
         [
-          medecin.nom_de_rue,
-          medecin.wilaya_id,
-          medecin.commune_id,
+          medecin.nomRue	,
+          medecin.wilaya,
+          medecin.commune,
           medecin.latitude,
           medecin.longitude,
           medecin.email,
@@ -520,13 +520,13 @@ export const updateProfile = (req, res) => {
         }
       );
     } else {
-      let query = `Update medecin set nom_de_rue = ? , wilaya_id = ? , commune_id = ? , latitude = ? , longitude = ? , email = ? where id = ?`;
+      let query = `Update medecin set nomRue = ? , wilaya = ? , commune = ? , latitude = ? , longitude = ? , email = ? where id = ?`;
       connection.query(
         query,
         [
-          medecin.nom_de_rue,
-          medecin.wilaya_id,
-          medecin.commune_id,
+          medecin.nomRue	,
+          medecin.wilaya,
+          medecin.commune,
           medecin.latitude,
           medecin.longitude,
           medecin.email,

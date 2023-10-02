@@ -631,8 +631,6 @@ const NavBarBis = (props) => {
                             {props.user?.nom} {props.user?.prenom}
                           </Typography>
                         );
-                        break;
-
                       default:
                         break;
                     }
@@ -641,7 +639,7 @@ const NavBarBis = (props) => {
                 <NavLink
                   to="/"
                   exact
-                  className="menu-item navbar-small"
+                  className="menu-item"
                   activeClassName="active-link"
                   onClick={closeMenu}
                 >
@@ -652,7 +650,7 @@ const NavBarBis = (props) => {
                 </NavLink>
                 <NavLink
                   to="/pro"
-                  className="menu-item navbar-small"
+                  className="menu-item"
                   activeClassName="active-link"
                   onClick={closeMenu}
                 >
@@ -663,7 +661,7 @@ const NavBarBis = (props) => {
                 </NavLink>
                 <NavLink
                   to="/search/type"
-                  className="menu-item navbar-small"
+                  className="menu-item"
                   activeClassName="active-link"
                   onClick={closeMenu}
                 >
@@ -672,7 +670,7 @@ const NavBarBis = (props) => {
                     {t("menu_item_pro_2")}
                   </Typography>
                 </NavLink>
-                {props.user && (
+                {!props.user && (
                   <>
                     <NavLink
                       activeClassName="active-link"

@@ -6,6 +6,7 @@ import { Redirect, Route } from "react-router-dom";
 //import { connect } from "react-redux";
 
 const ProfessionnelRoute = ({ component: Component, ...rest }) => {
+  const currentUser = localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
   // const { login: loginMedecin } = useSelector(
   //   (state) => state.loginMedecinReducer
   // );
@@ -24,8 +25,7 @@ const ProfessionnelRoute = ({ component: Component, ...rest }) => {
         // ) : (
         //   <Redirect to="/" />
         // )
-
-        rest.user ? <Component {...props}></Component> : <Redirect to="/" />
+        currentUser ? <Component {...props}></Component> : <Redirect to="/" />
       }
     />
   );

@@ -178,20 +178,20 @@ router.post("/pharmacie/register", async (req, res) => {
 router.post("/search/medecins", (req, res) => {
   const { wilaya, commune, specialite } = req.body;
   const sql = `SELECT medecin.id, medecin.nom,
-    medecin.prenom, medecin.nom_de_rue,medecin.tarif_cabinet,medecin.tarif_video,
+    medecin.prenom, medecin.nomRue,medecin.tarif_cabinet,medecin.tarif_video,
     medecin.latitude,medecin.longitude,medecin.abonner_formule_1,medecin.abonner_formule_2,
     wilaya.nom_fr as wilaya,commune.nom_fr as commune,
     specialite.nom_ar as specialite_ar,specialite.nom_fr as specialite_fr,specialite.nom_fr as specialite_en
     FROM medecin 
-    LEFT JOIN wilaya ON medecin.wilaya_id = wilaya.id 
-    LEFT JOIN commune ON medecin.commune_id = commune.id 
-    LEFT JOIN specialite ON medecin.specialite_id = specialite.id 
-    WHERE ${wilaya ? " medecin.wilaya_id = ? " : ""}${commune ? "and medecin.commune_id = ? " : ""
+    LEFT JOIN wilaya ON medecin.wilaya = wilaya.id 
+    LEFT JOIN commune ON medecin.commune = commune.id 
+    LEFT JOIN specialite ON medecin.specialite = specialite.id 
+    WHERE ${wilaya ? " medecin.wilaya = ? " : ""}${commune ? "and medecin.commune = ? " : ""
     }
     ${specialite
       ? wilaya
-        ? "and medecin.specialite_id = ? "
-        : "medecin.specialite_id = ? "
+        ? "and medecin.specialite = ? "
+        : "medecin.specialite = ? "
       : ""
     }  ORDER BY medecin.abonner_formule_1 DESC, medecin.abonner_formule_2 DESC`;
   const getParams = () => {
@@ -249,20 +249,20 @@ router.post("/search/paramedicals", (req, res) => {
 router.get("/medecin/info/:id", (req, res) => {
   const id = req.params.id;
   let query = `SELECT medecin.id, medecin.nom,
-    medecin.prenom, medecin.nom_de_rue,
+    medecin.prenom, medecin.nomRue,
     medecin.duree_seance,
     medecin.tarif_video,medecin.tarif_cabinet,
     medecin.abonner_formule_1,medecin.abonner_formule_2,
-    medecin.wilaya_id,medecin.commune_id,medecin.date_de_naissance,
+    medecin.wilaya,medecin.commune,medecin.date_de_naissance,
     medecin.telephone,medecin.email,medecin.presentation,
     medecin.latitude,medecin.longitude,
     medecin.formations,medecin.langues_parlees,
     wilaya.nom_fr as wilaya,commune.nom_fr as commune,
     specialite.nom_fr as specialite
     FROM medecin 
-    LEFT JOIN wilaya ON medecin.wilaya_id = wilaya.id 
-    LEFT JOIN commune ON medecin.commune_id = commune.id 
-    LEFT JOIN specialite ON medecin.specialite_id = specialite.id 
+    LEFT JOIN wilaya ON medecin.wilaya = wilaya.id 
+    LEFT JOIN commune ON medecin.commune = commune.id 
+    LEFT JOIN specialite ON medecin.specialite = specialite.id 
     WHERE medecin.id = ?`;
   connection.query(query, [id], (err, rows) => {
     if (err) res.status(403).json({ err });

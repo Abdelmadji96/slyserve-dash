@@ -25,19 +25,20 @@ import Navbar from "../../NavBar/Navbar";
 import Alert from "@material-ui/lab/Alert";
 import { useTranslation } from "react-i18next";
 import Footer from "../../Home/Footer";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { setToken, setUser } from "../../../redux/actions/user";
 import axios from "axios";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
+import { PARTICULIER_LOGIN_FAIL, PARTICULIER_LOGIN_SUCCESS } from "../../../actions/user.types";
 
 const Login = (props) => {
   const { t } = useTranslation();
   const [phoneEmail, setphoneEmail] = useState("");
   const [mdp, setMdp] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const dispatch = useDispatch();
   let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-  // const dispatch = useDispatch();
 
   // const { loading: loadingLogin, error, login: loginparticulier } = useSelector(
   //   (state) => state.loginParticulierReducer
@@ -75,16 +76,17 @@ const Login = (props) => {
       await props.saveToken(data["token"]);
       await props.login(data["particulier"]);
       props.history.push("/");
-      //localStorage.setItem("user", JSON.stringify(data));
-      //dispatch({ type: PARTICULIER_LOGIN_SUCCESS, payload: data });
+      localStorage.setItem("user", JSON.stringify(data.particulier));
+      dispatch({ type: PARTICULIER_LOGIN_SUCCESS, payload: data.particulier });
+      console.log('doneeee', data.particulier);
     } catch (error) {
-      // dispatch({
-      //   type: PARTICULIER_LOGIN_FAIL,
-      //   payload:
-      //     error.response && error.response.data.message
-      //       ? error.response.data.message
-      //       : error.message,
-      // });
+      dispatch({
+        type: PARTICULIER_LOGIN_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
       console.log('error', error);
     }
   };
@@ -99,7 +101,7 @@ const Login = (props) => {
             </Collapse> */}
             <CardContent>
               <Typography variant="h6" align="center" gutterBottom={10}>
-                {t("conx_sly_par") + ' aaa'}
+                {t("conx_sly_par")}
               </Typography>
               {/* <Collapse in={error}>
                 <Alert severity="error">{error}</Alert>

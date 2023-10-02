@@ -24,11 +24,12 @@ import MuiAlert from "@material-ui/lab/Alert";
 //import { MEDECIN_LOGIN_RESET } from "../../../actions/professionnel.types";
 import { useTranslation } from "react-i18next";
 import Footer from "../../Home/Footer";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { ROLES } from "../../../constants/user";
 import { setToken, setUser } from "../../../redux/actions/user";
 import axios from "axios";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
+import { MEDECIN_LOGIN_FAIL, MEDECIN_LOGIN_SUCCESS } from "../../../actions/professionnel.types";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -39,7 +40,7 @@ const ProfessionnelLogin = (props) => {
   const [successLogin, setSuccessLogin] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
 
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   // const {
   //   loading: loadingLogin,
@@ -114,17 +115,17 @@ const ProfessionnelLogin = (props) => {
           props.login(data["medecin"]);
           props.history.push("/")
         }
-        // localStorage.setItem("medecin", JSON.stringify(data));
-        // dispatch({ type: MEDECIN_LOGIN_SUCCESS, payload: data });
+        localStorage.setItem("user", JSON.stringify(data.medecin));
+        dispatch({ type: MEDECIN_LOGIN_SUCCESS, payload: data.medecin });
       } catch (error) {
         console.log(error);
-        // dispatch({
-        //   type: MEDECIN_LOGIN_FAIL,
-        //   payload:
-        //     error.response && error.response.data.message
-        //       ? error.response.data.message
-        //       : error.message,
-        // });
+        dispatch({
+          type: MEDECIN_LOGIN_FAIL,
+          payload:
+            error.response && error.response.data.message
+              ? error.response.data.message
+              : error.message,
+        });
       }
     }
   };
