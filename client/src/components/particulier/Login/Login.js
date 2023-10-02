@@ -60,18 +60,17 @@ const Login = (props) => {
     // }
     try {
       const { data } = await axios.post(
-        `/api/particulier/login/${
-          phoneEmail.match(regexEmail) ? "email" : "telephone"
+        `/api/particulier/login/${phoneEmail.match(regexEmail) ? "email" : "telephone"
         }`,
         phoneEmail.match(regexEmail)
           ? {
-              email: phoneEmail,
-              mdp,
-            }
+            email: phoneEmail,
+            mdp,
+          }
           : {
-              phone: phoneEmail,
-              mdp,
-            }
+            phone: phoneEmail,
+            mdp,
+          }
       );
       await props.saveToken(data["token"]);
       await props.login(data["particulier"]);
@@ -86,7 +85,7 @@ const Login = (props) => {
       //       ? error.response.data.message
       //       : error.message,
       // });
-      console.log(error);
+      console.log('error', error);
     }
   };
   return (
@@ -100,7 +99,7 @@ const Login = (props) => {
             </Collapse> */}
             <CardContent>
               <Typography variant="h6" align="center" gutterBottom={10}>
-                {t("conx_sly_par")}
+                {t("conx_sly_par") + ' aaa'}
               </Typography>
               {/* <Collapse in={error}>
                 <Alert severity="error">{error}</Alert>
@@ -130,10 +129,10 @@ const Login = (props) => {
                   /> */}
                   <FormControl fullWidth variant="outlined">
                     <InputLabel htmlFor="outlined-adornment-password">
-                    {t("mdp")}
+                      {t("mdp")}
                     </InputLabel>
                     <OutlinedInput
-                    
+
                       id="outlined-adornment-password"
                       type={passwordVisible ? "text" : "password"}
                       value={mdp}
@@ -142,7 +141,7 @@ const Login = (props) => {
                         <InputAdornment position="end">
                           <IconButton
                             aria-label="toggle password visibility"
-                            onClick={()=>setPasswordVisible(!passwordVisible)}
+                            onClick={() => setPasswordVisible(!passwordVisible)}
                             //onMouseDown={handleMouseDownPassword}
                             edge="end"
                           >

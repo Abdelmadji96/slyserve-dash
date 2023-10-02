@@ -45,7 +45,7 @@ const validationSchema = yup.object({
     .string()
     .min(3, "Prenom doit avoir au moins 3 caractères")
     .required("Prenom obligatoire"),
-  dateDeNaissance: yup.date().required("Date de naissance obligatoire"),
+  dateN: yup.date().required("Date de naissance obligatoire"),
   genre: yup.string().required("Genre obligatoire"),
   numeroTelephone: yup
     .string("Entrez votre numéro de téléphone")
@@ -61,14 +61,14 @@ const validationSchema = yup.object({
   confirmationEmail: yup
     .string()
     .oneOf([yup.ref("email"), null], "Email pas correct"),
-  motDePasse: yup
+  mdp: yup
     .string("Entrez votre mot de passe")
     .matches(passwdReg, "Mot de passe not correct")
     .required("Mot de passe requis"),
-  confirmationMotDePasse: yup
+  confirmationmdp: yup
     .string()
-    .oneOf([yup.ref("motDePasse"), null], "Mot de passe pas correct"),
-  nomDeRue: yup
+    .oneOf([yup.ref("mdp"), null], "Mot de passe pas correct"),
+  nomRue: yup
     .string()
     .min(10, "Adresse doit avoir minimun 10 caractères")
     .required("Adresse requise"),
@@ -86,16 +86,16 @@ export default function PorfessionnelRegister(props) {
     initialValues: {
       nom: "",
       prenom: "",
-      dateDeNaissance: "",
+      dateN: "",
       genre: "",
       specialite: "",
       numeroTelephone: "",
       confirmationNumeroTelephone: "",
       email: "",
       confirmationEmail: "",
-      motDePasse: "",
-      confirmationMotDePasse: "",
-      nomDeRue: "",
+      mdp: "",
+      confirmationmdp: "",
+      nomRue: "",
       wilaya: "",
       commune: "",
     },
@@ -185,18 +185,24 @@ export default function PorfessionnelRegister(props) {
   };
 
   const checkMedecinExist = async (telephone, email) => {
+    console.log('checkMedecinExist0');
     try {
       const { data } = await axios.post("/api/medecin/check", {
         telephone,
         email,
       });
-      if (data["message"] === "success") {
-        localStorage.setItem(
-          "professionnelInfos",
-          JSON.stringify({ ...formik.values, table: "medecin" })
-        );
-        //dispatch({ type: RESET_USER_CHECK });
-        props.history.push("/register/position");
+      console.log('checkMedecinExist1', data["message"]);
+      if (data["message"] === "fail") {
+        alert('Medecin exist déjà');
+      } else {
+        if (data["message"] === "success") {
+          localStorage.setItem(
+            "professionnelInfos",
+            JSON.stringify({ ...formik.values, table: "medecin" })
+          );
+          //dispatch({ type: RESET_USER_CHECK });
+          props.history.push("/register/position");
+        }
       }
     } catch (error) {
       console.log(error);
@@ -287,17 +293,17 @@ export default function PorfessionnelRegister(props) {
                           InputLabelProps={{ shrink: true }}
                           fullWidth
                           type="date"
-                          name="dateDeNaissance"
+                          name="dateN"
                           onBlur={formik.handleBlur}
-                          value={formik.values.dateDeNaissance}
+                          value={formik.values.dateN}
                           onChange={formik.handleChange}
                           error={
-                            formik.touched.dateDeNaissance &&
-                            Boolean(formik.errors.dateDeNaissance)
+                            formik.touched.dateN &&
+                            Boolean(formik.errors.dateN)
                           }
                           helperText={
-                            formik.touched.dateDeNaissance &&
-                            formik.errors.dateDeNaissance
+                            formik.touched.dateN &&
+                            formik.errors.dateN
                           }
                         />
                       </div>
@@ -381,7 +387,7 @@ export default function PorfessionnelRegister(props) {
                         <TextField
                           variant="outlined"
                           label={t("email")}
-                          name="confirmationNumeroTelephone"
+                          // name="confirmationNumeroTelephone"
                           required
                           fullWidth
                           name="email"
@@ -402,7 +408,7 @@ export default function PorfessionnelRegister(props) {
                         <TextField
                           variant="outlined"
                           label={t("confirm_email")}
-                          name="confirmationNumeroTelephone"
+                          // name="confirmationNumeroTelephone"
                           required
                           name="confirmationEmail"
                           id="confirmationEmail"
@@ -429,22 +435,22 @@ export default function PorfessionnelRegister(props) {
                         <TextField
                           variant="outlined"
                           label={t("mdp")}
-                          name="confirmationNumeroTelephone"
+                          // name="confirmationNumeroTelephone"
                           required
                           fullWidth
-                          name="motDePasse"
-                          id="motDePasse"
+                          name="mdp"
+                          id="mdp"
                           type="text"
                           onBlur={formik.handleBlur}
-                          value={formik.values.motDePasse}
+                          value={formik.values.mdp}
                           onChange={formik.handleChange}
                           error={
-                            formik.touched.motDePasse &&
-                            Boolean(formik.errors.motDePasse)
+                            formik.touched.mdp &&
+                            Boolean(formik.errors.mdp)
                           }
                           helperText={
-                            formik.touched.motDePasse &&
-                            formik.errors.motDePasse
+                            formik.touched.mdp &&
+                            formik.errors.mdp
                           }
                         />
                       </Grid>
@@ -452,22 +458,22 @@ export default function PorfessionnelRegister(props) {
                         <TextField
                           variant="outlined"
                           label={t("confirmMdp")}
-                          name="confirmationNumeroTelephone"
-                          name="confirmationMotDePasse"
-                          id="confirmationMotDePasse"
+                          // name="confirmationNumeroTelephone"
+                          name="confirmationmdp"
+                          id="confirmationmdp"
                           required
                           fullWidth
                           type="text"
                           onBlur={formik.handleBlur}
-                          value={formik.values.confirmationMotDePasse}
+                          value={formik.values.confirmationmdp}
                           onChange={formik.handleChange}
                           error={
-                            formik.touched.confirmationMotDePasse &&
-                            Boolean(formik.errors.confirmationMotDePasse)
+                            formik.touched.confirmationmdp &&
+                            Boolean(formik.errors.confirmationmdp)
                           }
                           helperText={
-                            formik.touched.confirmationMotDePasse &&
-                            formik.errors.confirmationMotDePasse
+                            formik.touched.confirmationmdp &&
+                            formik.errors.confirmationmdp
                           }
                         />
                       </Grid>
@@ -477,19 +483,19 @@ export default function PorfessionnelRegister(props) {
                   <TextField
                     label={t("nom_rue")}
                     required
-                    name="nomDeRue"
+                    name="nomRue"
                     style={{ marginTop: "10px" }}
                     variant="outlined"
                     color="primary"
                     fullWidth
                     onBlur={formik.handleBlur}
-                    value={formik.values.nomDeRue}
+                    value={formik.values.nomRue}
                     onChange={formik.handleChange}
                     error={
-                      formik.touched.nomDeRue && Boolean(formik.errors.nomDeRue)
+                      formik.touched.nomRue && Boolean(formik.errors.nomRue)
                     }
                     helperText={
-                      formik.touched.nomDeRue && formik.errors.nomDeRue
+                      formik.touched.nomRue && formik.errors.nomRue
                     }
                   />{" "}
                   <Grid container spacing={2} style={{ marginTop: "10px" }}>
@@ -516,12 +522,12 @@ export default function PorfessionnelRegister(props) {
                         {
                           //successWilaya
                           wilayas.length > 0 &&
-                            wilayas.map((w) => (
-                              <MenuItem value={w.id} key={w.id}>
-                                {w.id}-
-                                {i18n.language == "ar" ? w.nom_ar : w.nom_fr}
-                              </MenuItem>
-                            ))
+                          wilayas.map((w) => (
+                            <MenuItem value={w.id} key={w.id}>
+                              {w.id}-
+                              {i18n.language == "ar" ? w.nom_ar : w.nom_fr}
+                            </MenuItem>
+                          ))
                         }
                       </Select>
                     </Grid>
@@ -551,12 +557,12 @@ export default function PorfessionnelRegister(props) {
                         {
                           //successCommune
                           communes.length > 0 &&
-                            communes.map((c) => (
-                              <MenuItem value={c.id} key={c.id}>
-                                {c.wilaya_id}-
-                                {i18n.language == "ar" ? c.nom_ar : c.nom_fr}
-                              </MenuItem>
-                            ))
+                          communes.map((c) => (
+                            <MenuItem value={c.id} key={c.id}>
+                              {c.id}-
+                              {i18n.language == "ar" ? c.nom_ar : c.nom_fr}
+                            </MenuItem>
+                          ))
                         }
                       </Select>
                     </Grid>
@@ -584,12 +590,12 @@ export default function PorfessionnelRegister(props) {
                       {
                         //successSpecialite
                         specialites.length > 0 &&
-                          specialites.map((s) => (
-                            <MenuItem value={s.id} key={s.id}>
-                              {s.id}-
-                              {i18n.language === "ar" ? s.nom_ar : s.nom_fr}
-                            </MenuItem>
-                          ))
+                        specialites.map((s) => (
+                          <MenuItem value={s.id} key={s.id}>
+                            {s.id}-
+                            {i18n.language === "ar" ? s.nom_ar : s.nom_fr}
+                          </MenuItem>
+                        ))
                       }
                     </Select>
                   </div>

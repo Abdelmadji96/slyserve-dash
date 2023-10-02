@@ -32,43 +32,58 @@ export default function RegistreCommerce(props) {
   // const dispatch = useDispatch();
 
   const handleSubmit = async () => {
-    setLoading(true);
-    setError("");
-    const body = {
-      requests: [
-        {
-          image: {
-            content: base64.split(",")[1],
-          },
-
-          features: [
-            {
-              type: "TEXT_DETECTION",
-            },
-          ],
-        },
-      ],
-    };
-
-    await axios
-      .post(
-        "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAyd9MfKsyDjtn9mlB8aLD_FKTMILWTiWY",
-        body
-      )
-      .then(({ data }) => {
-        setLoading(false);
-        const { nom, prenom } = professionnel;
-        const text =
-          data.responses[0].textAnnotations[0].description.toLowerCase();
-        if (
-          text.includes(nom.toLowerCase()) &&
-          text.includes(prenom.toLowerCase())
-        ) {
-          //dispatch(signupProfessionnel(professionnel));
-        } else {
-          setError("Document d'identité non correspondant");
+    console.log('professionnel', professionnel);
+    try {
+      const { data } = await axios.post("/api/medecin/register", professionnel);
+      if (data["message"] === "fail") {
+        alert('Medecin exist déjà');
+      } else {
+        if (data["message"] === "success") {
+          props.history.push("/register/success/pro");
         }
-      });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    // setLoading(true);
+    // setError("");
+    // const body = {
+    //   requests: [
+    //     {
+    //       image: {
+    //         content: base64.split(",")[1],
+    //       },
+
+    //       features: [
+    //         {
+    //           type: "TEXT_DETECTION",
+    //         },
+    //       ],
+    //     },
+    //   ],
+    // };
+
+    // await axios
+    //   .post(
+    //     "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAyd9MfKsyDjtn9mlB8aLD_FKTMILWTiWY",
+    //     body
+    //   )
+    //   .then(({ data }) => {
+    //     setLoading(false);
+    //     const { nom, prenom } = professionnel;
+    //     const text =
+    //       data.responses[0].textAnnotations[0].description.toLowerCase();
+    //     console.log('iciiii', professionnel, text);
+    //     if (
+    //       text.includes(nom.toLowerCase()) &&
+    //       text.includes(prenom.toLowerCase())
+    //     ) {
+    //       //dispatch(signupProfessionnel(professionnel));
+    //     } else {
+    //       setError("Document d'identité non correspondant");
+    //     }
+    //   })
+    //   .catch((error) => console.log('error', error))
   };
   // useEffect(() => {
   //   if (successRegister) {

@@ -97,18 +97,17 @@ const ProfessionnelLogin = (props) => {
       // }
       try {
         const { data } = await axios.post(
-          `/api/medecin/login/${
-            phoneEmail.match(regexEmail) ? "email" : "telephone"
+          `/api/medecin/login/${phoneEmail.match(regexEmail) ? "email" : "telephone"
           }`,
           phoneEmail.match(regexEmail)
             ? {
-                email: phoneEmail,
-                mdp,
-              }
+              email: phoneEmail,
+              mdp,
+            }
             : {
-                telephone: phoneEmail,
-                mdp,
-              }
+              telephone: phoneEmail,
+              mdp,
+            }
         );
         if (data) {
           props.saveToken(data["token"]);
@@ -190,10 +189,10 @@ const ProfessionnelLogin = (props) => {
                   /> */}
                   <FormControl fullWidth variant="outlined">
                     <InputLabel htmlFor="outlined-adornment-password">
-                    {t("mdp")}
+                      {t("mdp")}
                     </InputLabel>
                     <OutlinedInput
-                    
+
                       id="outlined-adornment-password"
                       type={passwordVisible ? "text" : "password"}
                       value={mdp}
@@ -202,7 +201,7 @@ const ProfessionnelLogin = (props) => {
                         <InputAdornment position="end">
                           <IconButton
                             aria-label="toggle password visibility"
-                            onClick={()=>setPasswordVisible(!passwordVisible)}
+                            onClick={() => setPasswordVisible(!passwordVisible)}
                             //onMouseDown={handleMouseDownPassword}
                             edge="end"
                           >

@@ -7,10 +7,10 @@ dotenv.config();
 export const checkUnique = (req, res) => {
   try {
     let medecin = req.body;
-    let query = "select id from medecin where telephone = ? or email = ?";
+    let query = "select id from medecin where numeroTelephone = ? or email = ?";
     connection.query(
       query,
-      [medecin.telephone, medecin.email],
+      [medecin.numeroTelephone, medecin.email],
       (err, result) => {
         if (err) {
           res.status(403).send(err.errno);
@@ -29,8 +29,9 @@ export const register = (req, res) => {
   try {
     var medecin = req.body;
     var query =
-      "insert into medecin values (DEFAULT,?,?,?,?,?,?,?,?,?,?,NULL,NULL,NULL,?,?,?,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,?)";
-    var mdp = bcrypt.hashSync(medecin.mdp, 10);
+      "insert into medecin values (DEFAULT,?,?,?,?,?,?,?,?,?,?,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,?,?,?,DEFAULT)";
+    var mdp = bcrypt.hashSync(medecin.mdp, 10)
+
     connection.query(
       query,
       [
@@ -39,18 +40,20 @@ export const register = (req, res) => {
         medecin.prenom,
         medecin.dateN,
         medecin.numeroTelephone,
+        medecin.email,
         mdp,
-        medecin.specialite,
         medecin.nomRue,
         medecin.wilaya,
         medecin.commune,
         medecin.latitude,
         medecin.longitude,
-        medecin.email,
+        medecin.specialite,
         medecin.notificationsToken,
       ],
       function (error, results) {
-        if (error) res.status(401).json({ error: error });
+        if (error) {
+          res.status(401).json({ error: error });
+        }
         else res.status(201).json({ message: "success" });
       }
     );
@@ -68,11 +71,11 @@ export const loginTelephone = (req, res) => {
       if (error) res.status(400).json({ error });
       else {
         if (results.length === 1) {
-          if (bcrypt.compareSync(user.mdp, results[0].mot_de_passe)) {
+          if (bcrypt.compareSync(user.mdp, results[0].mdp)) {
             res.status(201).json({
               medecin: {
                 ...results[0],
-                mot_de_passe: undefined,
+                mdp: undefined,
                 agrement: undefined,
                 valide: undefined,
               },
@@ -105,12 +108,11 @@ export const loginEmail = (req, res) => {
       if (error) res.status(400).json({ error });
       else {
         if (results.length === 1) {
-          if (bcrypt.compareSync(user.mdp, results[0].mot_de_passe)) {
+          if (bcrypt.compareSync(user.mdp, results[0].mdp)) {
             res.status(201).json({
               medecin: {
                 ...results[0],
-
-                mot_de_passe: undefined,
+                mdp: undefined,
                 agrement: undefined,
                 valide: undefined,
               },
@@ -275,7 +277,6 @@ export const updateTarifs = (req, res) => {
 export const updateLangues = (req, res) => {
   try {
     let medecin = req.body;
-    console.log(medecin.langues);
     let query = "Update medecin set langues_parlees = ?  where id = ?";
     connection.query(query, [medecin.langues, req.user.id], (err, results) => {
       if (err) res.status(403).json({ error: err.errno });

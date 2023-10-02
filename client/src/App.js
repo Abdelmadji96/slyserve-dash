@@ -110,9 +110,9 @@ function App(props) {
     }
   };
 
-  useEffect(() => {
-    props.loadUser();
-  }, []);
+  // useEffect(() => {
+  //   props.loadUser();
+  // }, []);
 
   useEffect(() => {
     defineFont();

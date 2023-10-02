@@ -67,6 +67,7 @@ const SearchBoxMedecin = ({ user, saveDoctors, setMedecins }) => {
     });
 
     const responseJson = await response.json();
+    console.log('getWilayas', responseJson)
     if (responseJson) {
       setLoadingWilayas(false);
       setWilayas(responseJson);
@@ -194,11 +195,11 @@ const SearchBoxMedecin = ({ user, saveDoctors, setMedecins }) => {
               {
                 //successWilaya &&
                 wilayas.length > 0 &&
-                  wilayas.map((w) => (
-                    <MenuItem value={w.id} key={w.id}>
-                      {w.id}-{i18n.language === "ar" ? w.nom_ar : w.nom_fr}
-                    </MenuItem>
-                  ))
+                wilayas.map((w) => (
+                  <MenuItem value={w.id} key={w.id}>
+                    {w.id}-{i18n.language === "ar" ? w.nom_ar : w.nom_fr}
+                  </MenuItem>
+                ))
               }
             </Select>
           </Grid>
@@ -219,12 +220,12 @@ const SearchBoxMedecin = ({ user, saveDoctors, setMedecins }) => {
               {
                 //successCommune &&
                 communes.length > 0 &&
-                  communes.map((c) => (
-                    <MenuItem value={c.id} key={c.id}>
-                      {c.wilaya_id}-
-                      {i18n.language == "ar" ? c.nom_ar : c.nom_fr}
-                    </MenuItem>
-                  ))
+                communes.map((c) => (
+                  <MenuItem value={c.id} key={c.id}>
+                    {c.wilaya_id}-
+                    {i18n.language == "ar" ? c.nom_ar : c.nom_fr}
+                  </MenuItem>
+                ))
               }
             </Select>
           </Grid>
@@ -244,11 +245,11 @@ const SearchBoxMedecin = ({ user, saveDoctors, setMedecins }) => {
               {
                 //successSpecialite &&
                 specialites.length > 0 &&
-                  specialites.map((s) => (
-                    <MenuItem value={s.id} key={s.id}>
-                      {s.id}-{i18n.language == "ar" ? s.nom_ar : s.nom_fr}
-                    </MenuItem>
-                  ))
+                specialites.map((s) => (
+                  <MenuItem value={s.id} key={s.id}>
+                    {s.id}-{i18n.language == "ar" ? s.nom_ar : s.nom_fr}
+                  </MenuItem>
+                ))
               }
             </Select>
           </Grid>

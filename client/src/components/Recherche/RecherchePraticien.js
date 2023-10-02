@@ -94,8 +94,8 @@ const RecherchePraticien = (props) => {
                 {
                   //successMedecin &&
                   medecins.length &&
-                  //props.doctors
-                  medecins.length !== 0 ? (
+                    //props.doctors
+                    medecins.length !== 0 ? (
                     medecins
                       //props.doctors
                       .map((m) => (

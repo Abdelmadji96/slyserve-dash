@@ -13,14 +13,11 @@ export const checkUnique = (req, res) => {
       [particulier.telephone, particulier.email],
       (err, result) => {
         if (err) {
-          console.log("rak fel errreur");
-          res.status(403).send(err.errno);
+          res.status(403).send(err);
         } else {
-          console.log("nchoufou");
           if (result.length === 0) {
-            console.log("nchoufou");
             res.status(201).json({ message: "success" });
-          } else res.status(200).json({ message: "fail" });
+          } else res.status(200).json({ message: "Particulier exist déjà" });
         }
       }
     );
@@ -33,7 +30,7 @@ export const register = (req, res) => {
   try {
     var particulier = req.body;
     var query =
-      "insert into particulier values (DEFAULT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DEFAULT,DEFAULT)";
+      "insert into particulier values (DEFAULT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DEFAULT)";
     var mdp = bcrypt.hashSync(particulier.mdp, 10);
     connection.query(
       query,
@@ -54,6 +51,8 @@ export const register = (req, res) => {
         particulier.groupe_sanguin,
         particulier.notificationsToken,
       ],
+
+
       function (error, results) {
         if (error) res.status(401).json({ error: error });
         else res.status(201).json({ message: "success" });
@@ -65,7 +64,6 @@ export const register = (req, res) => {
 };
 
 export const registerDonneurSang = (req, res) => {
-  console.log(req.body);
   try {
     var donneurSang = req.body;
     var query =
@@ -108,12 +106,12 @@ export const loginTelephone = (req, res) => {
       if (error) res.status(400).json({ error });
       else {
         if (results.length === 1) {
-          if (bcrypt.compareSync(user.mdp, results[0].mot_de_passe)) {
+          if (bcrypt.compareSync(user.mdp, results[0].mdp)) {
             if (results[0].valide == 1) {
               res.status(201).json({
                 particulier: {
                   ...results[0],
-                  mot_de_passe: undefined,
+                  mdp: undefined,
                 },
                 token: jwt.sign(
                   {
@@ -151,12 +149,12 @@ export const loginEmail = (req, res) => {
       if (error) res.status(400).json({ error });
       else {
         if (results.length === 1) {
-          if (bcrypt.compareSync(user.mdp, results[0].mot_de_passe)) {
-            if (results[0].valide == 1) {
+          if (bcrypt.compareSync(user.mdp, results[0].mdp)) {
+            // if (results[0].valide == 1) {
               res.status(201).json({
                 particulier: {
                   ...results[0],
-                  mot_de_passe: undefined,
+                  mdp: undefined,
                 },
                 token: jwt.sign(
                   { userId: user.email, particulier: true, id: results[0].id },
@@ -166,9 +164,9 @@ export const loginEmail = (req, res) => {
                   }
                 ),
               });
-            } else {
-              res.status(401).json({ message: "Profil non valide !" });
-            }
+            // } else {
+            //   res.status(401).json({ message: "Profil non valide !" });
+            // }
           } else
             res
               .status(401)
@@ -336,7 +334,6 @@ export const cancelRDV = (req, res) => {
 
 export const searchByWilaya = (req, res) => {
   try {
-    console.log(req.body);
     let particulier = req.body;
     let query = `Select particulier.nom,particulier.prenom,
     particulier.email,particulier.telephone,

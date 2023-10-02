@@ -49,7 +49,7 @@ const validationSchema = yup.object({
     .string()
     .min(3, "Le prenom doit avoir minoimun 3 caractères")
     .required("Prenom requis"),
-  dateDeNaissance: yup.date().required("date de naissance requis"),
+  dateN: yup.date().required("date de naissance requis"),
   numeroTelephone: yup
     .string("Entrez votre numéro de téléphone")
     .matches(phoneRegExp, "Nuémro de telephone non valide")
@@ -64,14 +64,14 @@ const validationSchema = yup.object({
   confirmationEmail: yup
     .string()
     .oneOf([yup.ref("email"), null], "Email pas correct"),
-  motDePasse: yup
+  mdp: yup
     .string("Entrez votre mot de passe")
     .matches(passwdReg, "Mot de passe not correct")
     .required("Mot de passe requis"),
-  confirmationMotDePasse: yup
+  confirmationmdp: yup
     .string()
-    .oneOf([yup.ref("motDePasse"), null], "Mot de passe pas correct"),
-  nomDeRue: yup
+    .oneOf([yup.ref("mdp"), null], "Mot de passe pas correct"),
+  nomRue: yup
     .string()
     .min(10, "Adresse doit avoir minimun 10 caractères")
     .required("Adresse requise"),
@@ -131,33 +131,40 @@ export default function Register(props) {
     initialValues: {
       nom: "",
       prenom: "",
-      dateDeNaissance: "",
+      dateN: "",
       genre: "",
       numeroTelephone: "",
       confirmationNumeroTelephone: "",
       email: "",
       confirmationEmail: "",
-      motDePasse: "",
-      confirmationMotDePasse: "",
-      nomDeRue: "",
+      mdp: "",
+      confirmationmdp: "",
+      nomRue: "",
       wilaya: "",
       commune: "",
-      donneurSang: false,
-      gs: "",
+      donneur_sang: false,
+      groupe_sanguin: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      //dispatch(checkParticulierExist(values.numeroTelephone, values.email));
-      // try {
-      //   const { data } = await axios.post("/api/particulier/check", {
-      //     telephone: values.numeroTelephone,
-      //     email: values.email,
-      //   });
-      //   alert(JSON.stringify(data));
-      // } catch (error) {
-      //   console.log(error);
-      // }
-      alert(JSON.stringify(values));
+    onSubmit: async (values) => {
+      // dispatch(checkParticulierExist(values.numeroTelephone, values.email));
+      console.log('valuesvalues', values);
+      try {
+        const { data } = await axios.post("/api/particulier/check", {
+          telephone: values.numeroTelephone,
+          email: values.email,
+        });
+        console.log('datadata', data);
+        if (data?.message === 'success') {
+          axios.post("/api/particulier/register", values)
+            .then(result => (alert('Particulier ajouter avec succès')))
+            .catch(error => console.log('errr', error));
+        } else {
+          alert(JSON.stringify(data?.message));
+        }
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
 
@@ -175,7 +182,7 @@ export default function Register(props) {
   //   if (successCheck === "success") {
   //     dispatch({ type: RESET_USER_CHECK });
   //     localStorage.setItem("particulierInfos", JSON.stringify(formik.values));
-  //     if (formik.values.donneurSang)
+  //     if (formik.values.donneur_sang)
   //       props.history.push("/register/particulier/position");
   //     else props.history.push("/register/particulier/identite");
   //   }
@@ -260,17 +267,17 @@ export default function Register(props) {
                           InputLabelProps={{ shrink: true }}
                           fullWidth
                           type="date"
-                          name="dateDeNaissance"
+                          name="dateN"
                           onBlur={formik.handleBlur}
-                          value={formik.values.dateDeNaissance}
+                          value={formik.values.dateN}
                           onChange={formik.handleChange}
                           error={
-                            formik.touched.dateDeNaissance &&
-                            Boolean(formik.errors.dateDeNaissance)
+                            formik.touched.dateN &&
+                            Boolean(formik.errors.dateN)
                           }
                           helperText={
-                            formik.touched.dateDeNaissance &&
-                            formik.errors.dateDeNaissance
+                            formik.touched.dateN &&
+                            formik.errors.dateN
                           }
                         />
                       </div>
@@ -402,19 +409,19 @@ export default function Register(props) {
                           label={t("mdp")}
                           required
                           fullWidth
-                          name="motDePasse"
-                          id="motDePasse"
+                          name="mdp"
+                          id="mdp"
                           type="text"
                           onBlur={formik.handleBlur}
-                          value={formik.values.motDePasse}
+                          value={formik.values.mdp}
                           onChange={formik.handleChange}
                           error={
-                            formik.touched.motDePasse &&
-                            Boolean(formik.errors.motDePasse)
+                            formik.touched.mdp &&
+                            Boolean(formik.errors.mdp)
                           }
                           helperText={
-                            formik.touched.motDePasse &&
-                            formik.errors.motDePasse
+                            formik.touched.mdp &&
+                            formik.errors.mdp
                           }
                         />
                         {/* <FormControl fullWidth variant="outlined">
@@ -424,10 +431,10 @@ export default function Register(props) {
                           <OutlinedInput
                             id="outlined-adornment-password"
                             type={passwordVisible ? "text" : "password"}
-                            name="motDePasse"
+                            name="mdp"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.motDePasse}
+                            value={formik.values.mdp}
                             endAdornment={
                               <InputAdornment position="end">
                                 <IconButton
@@ -454,21 +461,21 @@ export default function Register(props) {
                         <TextField
                           variant="outlined"
                           label={t("confirmMdp")}
-                          name="confirmationMotDePasse"
-                          id="confirmationMotDePasse"
+                          name="confirmationmdp"
+                          id="confirmationmdp"
                           required
                           fullWidth
                           type="text"
                           onBlur={formik.handleBlur}
-                          value={formik.values.confirmationMotDePasse}
+                          value={formik.values.confirmationmdp}
                           onChange={formik.handleChange}
                           error={
-                            formik.touched.confirmationMotDePasse &&
-                            Boolean(formik.errors.confirmationMotDePasse)
+                            formik.touched.confirmationmdp &&
+                            Boolean(formik.errors.confirmationmdp)
                           }
                           helperText={
-                            formik.touched.confirmationMotDePasse &&
-                            formik.errors.confirmationMotDePasse
+                            formik.touched.confirmationmdp &&
+                            formik.errors.confirmationmdp
                           }
                         />
                       </Grid>
@@ -480,8 +487,8 @@ export default function Register(props) {
                         <FormControlLabel
                           label={t("donneur_sang")}
                           labelPlacement="end"
-                          name="donneurSang"
-                          checked={formik.values.donneurSang}
+                          name="donneur_sang"
+                          checked={formik.values.donneur_sang}
                           onChange={formik.handleChange}
                           control={<Checkbox color="primary" />}
                         />
@@ -492,18 +499,18 @@ export default function Register(props) {
                           variant="outlined"
                           required
                           defaultValue=""
-                          name="gs"
+                          name="groupe_sanguin"
                           disabled={
-                            /*loadingWilaya ||*/ !formik.values.donneurSang
+                            /*loadingWilaya ||*/ !formik.values.donneur_sang
                           }
-                          value={formik.values.gs}
+                          value={formik.values.groupe_sanguin}
                           onChange={formik.handleChange}
-                          error={formik.touched.gs && Boolean(formik.errors.gs)}
-                          helperText={formik.touched.gs && formik.errors.gs}
+                          error={formik.touched.groupe_sanguin && Boolean(formik.errors.groupe_sanguin)}
+                          helperText={formik.touched.groupe_sanguin && formik.errors.groupe_sanguin}
                         >
-                          {groupeSanguins.map((gs) => (
-                            <MenuItem key={gs} value={gs}>
-                              {gs}
+                          {groupeSanguins.map((groupe_sanguin) => (
+                            <MenuItem key={groupe_sanguin} value={groupe_sanguin}>
+                              {groupe_sanguin}
                             </MenuItem>
                           ))}
                         </Select>
@@ -514,19 +521,19 @@ export default function Register(props) {
                   <TextField
                     label={t("nom_rue")}
                     required
-                    label={t("nom_rue")}
                     style={{ marginTop: "10px" }}
                     variant="outlined"
                     color="primary"
                     fullWidth
                     onBlur={formik.handleBlur}
-                    value={formik.values.nomDeRue}
+                    value={formik.values.nomRue}
                     onChange={formik.handleChange}
+                    name="nomRue"
                     error={
-                      formik.touched.nomDeRue && Boolean(formik.errors.nomDeRue)
+                      formik.touched.nomRue && Boolean(formik.errors.nomRue)
                     }
                     helperText={
-                      formik.touched.nomDeRue && formik.errors.nomDeRue
+                      formik.touched.nomRue && formik.errors.nomRue
                     }
                   />
                   <Grid container spacing={2} style={{ marginTop: "10px" }}>
@@ -553,12 +560,12 @@ export default function Register(props) {
                         {
                           //successWilaya
                           wilayas.length > 0 &&
-                            wilayas.map((w) => (
-                              <MenuItem value={w.id} key={w.id}>
-                                {w.id}-
-                                {i18n.language == "ar" ? w.nom_ar : w.nom_fr}
-                              </MenuItem>
-                            ))
+                          wilayas.map((w) => (
+                            <MenuItem value={w.id} key={w.id}>
+                              {w.id}-
+                              {i18n.language == "ar" ? w.nom_ar : w.nom_fr}
+                            </MenuItem>
+                          ))
                         }
                       </Select>
                     </Grid>
@@ -588,7 +595,7 @@ export default function Register(props) {
                           communes.length > 0 && formik.values.wilaya ? (
                             communes.map((c) => (
                               <MenuItem value={c.id} key={c.id}>
-                                {c.wilaya_id}-
+                                {c.id}-
                                 {i18n.language == "ar" ? c.nom_ar : c.nom_fr}
                               </MenuItem>
                             ))

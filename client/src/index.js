@@ -7,7 +7,7 @@ import "./index.css";
 import { ThemeProvider } from "@material-ui/core";
 import theme from "./theme";
 //import store from "./store";
-import {store} from "./redux/store";
+import { store } from "./redux/store";
 import { Provider } from "react-redux";
 import { CircularProgress } from "@material-ui/core";
 import ScrollToTop from "./ScrollToTp";

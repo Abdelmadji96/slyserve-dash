@@ -186,15 +186,13 @@ router.post("/search/medecins", (req, res) => {
     LEFT JOIN wilaya ON medecin.wilaya_id = wilaya.id 
     LEFT JOIN commune ON medecin.commune_id = commune.id 
     LEFT JOIN specialite ON medecin.specialite_id = specialite.id 
-    WHERE ${wilaya ? " medecin.wilaya_id = ? " : ""}${
-    commune ? "and medecin.commune_id = ? " : ""
-  }
-    ${
-      specialite
-        ? wilaya
-          ? "and medecin.specialite_id = ? "
-          : "medecin.specialite_id = ? "
-        : ""
+    WHERE ${wilaya ? " medecin.wilaya_id = ? " : ""}${commune ? "and medecin.commune_id = ? " : ""
+    }
+    ${specialite
+      ? wilaya
+        ? "and medecin.specialite_id = ? "
+        : "medecin.specialite_id = ? "
+      : ""
     }  ORDER BY medecin.abonner_formule_1 DESC, medecin.abonner_formule_2 DESC`;
   const getParams = () => {
     if (wilaya && commune && specialite) return [wilaya, commune, specialite];
@@ -204,6 +202,7 @@ router.post("/search/medecins", (req, res) => {
     if (wilaya && !commune && !specialite) return [wilaya];
   };
   connection.query(sql, getParams(), (err, rows) => {
+    console.log('azeaze', err);
     if (!err) {
       res.status(200).send(rows);
     } else {
@@ -223,15 +222,13 @@ router.post("/search/paramedicals", (req, res) => {
     LEFT JOIN wilaya ON paramedical.wilaya_id = wilaya.id 
     LEFT JOIN commune ON paramedical.commune_id = commune.id 
     LEFT JOIN specialite_paramedical ON paramedical.specialite_id = specialite_paramedical.id 
-    WHERE ${wilaya ? " paramedical.wilaya_id = ? " : ""}${
-    commune ? "and paramedical.commune_id = ? " : ""
-  }
-    ${
-      specialite
-        ? wilaya
-          ? "and paramedical.specialite_id = ? "
-          : "paramedical.specialite_id = ? "
-        : ""
+    WHERE ${wilaya ? " paramedical.wilaya_id = ? " : ""}${commune ? "and paramedical.commune_id = ? " : ""
+    }
+    ${specialite
+      ? wilaya
+        ? "and paramedical.specialite_id = ? "
+        : "paramedical.specialite_id = ? "
+      : ""
     }  `;
   const getParams = () => {
     if (wilaya && commune && specialite) return [wilaya, commune, specialite];

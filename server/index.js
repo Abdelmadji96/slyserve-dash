@@ -1,4 +1,6 @@
 import express from "express";
+import cors from 'cors';
+
 import connection from "./db.js";
 import proRouter from "./routes/professionnel.route.js";
 import partRouter from "./routes/particuliers.route.js";
@@ -39,6 +41,11 @@ import path from "path";
 
 dotenv.config();
 const app = express();
+
+const devOrigins = process.env.CORS_FRONTEND_DEV_DOMAINS?.split(' ');
+console.log('devOrigins', devOrigins);
+app.use(cors({ devOrigins, optionsSuccessStatus: 200, credentials: true }));
+
 
 app.use(express.json());
 connection.connect((err) => {
@@ -84,12 +91,12 @@ app.use("/api/biology", biologyRouter);
 app.use("/api/records", recordsRouter);
 app.use("/api/prescriptions", prescriptionsRouter);
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "/client/build")));
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
-}
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static(path.join(__dirname, "/client/build")));
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+//   });
+// }
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log("Server started");
