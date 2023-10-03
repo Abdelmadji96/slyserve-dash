@@ -58,6 +58,8 @@ import axios from "axios";
 const MaFicheProfessionnel = (props) => {
   const { t } = useTranslation();
   const [horaires, setHoraires] = useState();
+  const user = localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
+  console.log('useruser', user);
   // const dispatch = useDispatch();
   // const { medecin } = useSelector((state) => state.loginMedecinReducer);
   // const { success: successUpdate } = useSelector(
@@ -86,6 +88,7 @@ const MaFicheProfessionnel = (props) => {
         medecin,
         day,
       });
+      console.log('datadata', data);
       setHoraires(data);
       //dispatch({ type: MEDECIN_GET_HORAIRES_SUCCESS, payload: data });
     } catch (error) {
@@ -138,7 +141,7 @@ const MaFicheProfessionnel = (props) => {
                       fullWidth
                       disabled
                       labe="Nom"
-                      value={props.user.nom} //{medecinInfos.infos.nom}
+                      value={user.nom} //{medecinInfos.infos.nom}
                     />
                   </Grid>
                   <Grid item xs={12} sm={4}>
@@ -150,7 +153,7 @@ const MaFicheProfessionnel = (props) => {
                       color="primary"
                       fullWidth
                       disabled
-                      value={props.user.prenom} //{medecinInfos.infos.prenom}
+                      value={user.prenom} //{medecinInfos.infos.prenom}
                     />
                   </Grid>
 
@@ -166,7 +169,7 @@ const MaFicheProfessionnel = (props) => {
                       type="date"
                       value={moment(
                         //medecinInfos.infos.date_naissance
-                        props.user.date_naissance
+                        user.dateN
                       ).format("YYYY-MM-DD")}
                     />
                   </Grid>
@@ -181,7 +184,7 @@ const MaFicheProfessionnel = (props) => {
                       color="primary"
                       fullWidth
                       disabled
-                      value={props.user.specialite} //{medecinInfos.infos.specialite}
+                      value={user.specialite} //{medecinInfos.infos.specialite}
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
@@ -193,7 +196,7 @@ const MaFicheProfessionnel = (props) => {
                       color="primary"
                       fullWidth
                       disabled
-                      value={props.user.telephone} //{medecinInfos.infos.telephone}
+                      value={user.numeroTelephone} //{medecinInfos.infos.telephone}
                     />
                   </Grid>
                 </Grid>
@@ -229,7 +232,7 @@ const MaFicheProfessionnel = (props) => {
                     ) : ( */}
                     <Adresse
                       medecin={
-                        props.user
+                        user
                         //medecinInfos.infos
                       }
                     />
@@ -259,7 +262,7 @@ const MaFicheProfessionnel = (props) => {
                       <Email
                         medecin={
                           //medecinInfos.infos
-                          props.user
+                          user
                         }
                       />
                       //)
@@ -305,8 +308,8 @@ const MaFicheProfessionnel = (props) => {
                   </Grid>
                   <Grid item sm={1}>
                     <HorairesTravail
-                      horaires={horaires} //{props.user.horaires} //{medecinInfos.horaires}
-                      dureeSeance={props.user.duree_seance} //{medecinInfos.infos.duree_seance}
+                      horaires={horaires} //{user.horaires} //{medecinInfos.horaires}
+                      dureeSeance={user.duree_seance} //{medecinInfos.infos.duree_seance}
                     />
                   </Grid>
                 </Grid>
@@ -329,8 +332,8 @@ const MaFicheProfessionnel = (props) => {
 
                   <Grid item sm={1}>
                     <Tarifs
-                      tarifVideo={props.user.tarif_video} //{medecinInfos.infos.tarif_video}
-                      tarifCabinet={props.user.tarif_cabinet} //{medecinInfos.infos.tarif_cabinet}
+                      tarifVideo={user.tarif_video} //{medecinInfos.infos.tarif_video}
+                      tarifCabinet={user.tarif_cabinet} //{medecinInfos.infos.tarif_cabinet}
                     />
                   </Grid>
                 </Grid>
@@ -352,7 +355,7 @@ const MaFicheProfessionnel = (props) => {
                   </Grid>
                   <Grid item sm={1}>
                     <Presentation
-                      medecin={props.user} //{medecinInfos.infos}
+                      medecin={user} //{medecinInfos.infos}
                     />
                   </Grid>
                 </Grid>
@@ -374,7 +377,7 @@ const MaFicheProfessionnel = (props) => {
                   </Grid>
                   <Grid item sm={1}>
                     <Langues
-                      medecin={props.user} //{medecinInfos.infos}
+                      medecin={user} //{medecinInfos.infos}
                     />
                   </Grid>
                 </Grid>
@@ -396,7 +399,7 @@ const MaFicheProfessionnel = (props) => {
                   </Grid>
                   <Grid item sm={1}>
                     <Formations
-                      medecin={props.user} //{medecinInfos.infos}
+                      medecin={user} //{medecinInfos.infos}
                     />
                   </Grid>
                 </Grid>
@@ -424,11 +427,12 @@ const mapStateProps = (store) => ({
 export default connect(mapStateProps, null)(MaFicheProfessionnel);
 
 function Adresse({ medecin }) {
+  console.log('medecinmedecin', medecin);
   const { t, i18n } = useTranslation();
   const [open, setOpen] = useState(false);
-  const [wilayaId, setWilayaId] = useState(medecin ? medecin.wilaya_id : "");
-  const [communeId, setCommuneId] = useState(medecin ? medecin.commune_id : "");
-  const [nom_de_rue, setAdresse] = useState(medecin ? medecin.nom_de_rue : "");
+  const [wilayaId, setWilayaId] = useState(medecin ? medecin.wilaya : "");
+  const [communeId, setCommuneId] = useState(medecin ? medecin.commune : "");
+  const [nom_de_rue, setAdresse] = useState(medecin ? medecin.nomRue : "");
   // const {
   //   loading: loadingUpdate,
   //   success: successUpdate,
@@ -457,10 +461,31 @@ function Adresse({ medecin }) {
     setOpen(false);
   };
 
-  // useEffect(() => {
-  //   dispatch(getWilaya());
-  //   dispatch(getCommunes(wilayaId));
-  // }, [dispatch, wilayaId]);
+  const getWilayas = async () => {
+    try {
+      const response = await axios.get("/api/wilayas");
+      setWilayas(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getCommunes = async (id) => {
+    try {
+      const body = { wilaya_id: parseInt(id) };
+      const communes = await axios.post("/api/communes", body);
+      if (communes) {
+        setCommunes(communes["data"]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getWilayas();
+    getCommunes(wilayaId);
+  }, [wilayaId]);
 
   // useEffect(() => {
   //   if (successUpdate) {
@@ -511,16 +536,16 @@ function Adresse({ medecin }) {
                 required
                 variant="outlined"
                 onChange={(e) => setWilayaId(e.target.value)}
-                //disabled={loadingWilayas}
+              //disabled={loadingWilayas}
               >
                 {
                   //successWilaya
                   wilayas.length > 0 &&
-                    wilayas.map((w) => (
-                      <MenuItem value={w.id} key={w.id}>
-                        {w.id}-{i18n.language == "ar" ? w.nom_ar : w.nom_fr}
-                      </MenuItem>
-                    ))
+                  wilayas.map((w) => (
+                    <MenuItem value={w.id} key={w.id}>
+                      {w.id}-{i18n.language == "ar" ? w.nom_ar : w.nom_fr}
+                    </MenuItem>
+                  ))
                 }
               </Select>
             </Grid>
@@ -536,12 +561,12 @@ function Adresse({ medecin }) {
                 {
                   //successCommune
                   communes.length > 0 &&
-                    communes.map((c) => (
-                      <MenuItem value={c.id} key={c.id}>
-                        {c.wilaya_id}-
-                        {i18n.language == "ar" ? c.nom_ar : c.nom_fr}
-                      </MenuItem>
-                    ))
+                  communes.map((c) => (
+                    <MenuItem value={c.id} key={c.id}>
+                      {c.wilaya_id}-
+                      {i18n.language == "ar" ? c.nom_ar : c.nom_fr}
+                    </MenuItem>
+                  ))
                 }
               </Select>
             </Grid>
@@ -726,7 +751,7 @@ function Formations({ medecin }) {
           <Button
             onClick={handleSubmit}
             color="primary"
-            //disabled={loadingUpdate}
+          //disabled={loadingUpdate}
           >
             {t("modifier")}
           </Button>
@@ -804,7 +829,7 @@ function Presentation({ medecin }) {
           <Button
             onClick={handleSubmit}
             color="primary"
-            //disabled={loadingUpdate}
+          //disabled={loadingUpdate}
           >
             {t("modifier")}
           </Button>
@@ -974,7 +999,7 @@ function Langues({ medecin }) {
           <Button
             onClick={handleSubmit}
             color="primary"
-            //disabled={loadingUpdate}
+          //disabled={loadingUpdate}
           >
             {t("modifier")}
           </Button>
