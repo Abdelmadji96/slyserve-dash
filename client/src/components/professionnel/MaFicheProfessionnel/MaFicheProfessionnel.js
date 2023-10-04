@@ -37,18 +37,18 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { Create } from "@material-ui/icons";
 import { useTranslation } from "react-i18next";
-// import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // import { getMedecinInfos } from "../../../actions/professionnel.actions";
 // import { getCommunes, getWilaya } from "../../../actions/user.actions";
 import moment from "moment";
-// import {
-//   medecinUpdateAdresse,
-//   medecinUpdateFormations,
-//   medecinUpdateHoraires,
-//   medecinUpdateLangues,
-//   medecinUpdatePresentation,
-//   medecinUpdateTarifs,
-// } from "../../../actions/medecin";
+import {
+  medecinUpdateAdresse,
+  medecinUpdateFormations,
+  medecinUpdateHoraires,
+  medecinUpdateLangues,
+  medecinUpdatePresentation,
+  medecinUpdateTarifs,
+} from "../../../actions/medecin";
 // import { MEDECIN_UPDATE_PROFILE_RESET } from "../../../actions/professionnel.types";
 import Footer from "../../Home/Footer";
 import { connect } from "react-redux";
@@ -83,6 +83,7 @@ const MaFicheProfessionnel = (props) => {
   // }, [successUpdate]);
 
   const fetchHoraires = async (medecin, day) => {
+    console.log("fetchHoraires", medecin, day);
     try {
       const { data } = await axios.post("/api/medecin/horaires", {
         medecin,
@@ -99,12 +100,14 @@ const MaFicheProfessionnel = (props) => {
       //       ? error.response.data.message
       //       : error.message,
       // });
-      console.log(error);
+      console.log('fetchHoraires', { ...error });
     }
   };
 
   useEffect(() => {
-    fetchHoraires();
+    if (user) {
+      fetchHoraires(user.id, moment(new Date()).format('yyyy-MM-d'));
+    }
   }, []);
 
   return (
@@ -846,7 +849,7 @@ function Tarifs({
   const [open, setOpen] = React.useState(false);
   const [tarifVideo, setTarifVideo] = useState(tarifVideoMedecin);
   const [tarifCabinet, setTarifCabinet] = useState(tarifCabinetMedecin);
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -861,7 +864,7 @@ function Tarifs({
   //   error,
   // } = useSelector((state) => state.medecinUpdateProfileReducer);
   const handleSubmit = () => {
-    //dispatch(medecinUpdateTarifs({ tarifCabinet, tarifVideo }));
+    dispatch(medecinUpdateTarifs({ tarifCabinet, tarifVideo }));
   };
   // useEffect(() => {
   //   if (successUpdate)

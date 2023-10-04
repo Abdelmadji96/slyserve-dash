@@ -209,7 +209,7 @@ const HorairesTravail = ({
                 value={duree}
                 onChange={(e) => setDuree(e.target.value)}
                 fullWidth
-                disabled={dureeSeance !== 0}
+                //disabled={dureeSeance !== 0}
                 variant="outlined"
               >
                 <MenuItem value={10}>10 {t("minutes")}</MenuItem>

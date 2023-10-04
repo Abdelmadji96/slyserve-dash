@@ -177,6 +177,7 @@ export const updateHoraireTravail = (req, res) => {
 export const getRDVHoraires = (req, res) => {
   try {
     const { day, medecin } = req.body;
+    console.log('getRDVHoraires', day, medecin);
     const weekday = new Date(day).getDay();
 
     let query =
@@ -187,6 +188,7 @@ export const getRDVHoraires = (req, res) => {
         query =
           "Select heure_rdv from rendez_vous where medecin_id = ? and date_rdv = ? and annule = 0";
         connection.query(query, [medecin, day], (err, res2) => {
+          console.log('errrr', err, res2);
           if (err) res.status(403).json({ error: err });
           else {
             connection.query(
@@ -218,7 +220,7 @@ export const updateAdresse = (req, res) => {
       "Update medecin set nomRue = ? , wilaya = ? , commune = ?  where id = ?";
     connection.query(
       query,
-      [medecin.nomRue	, medecin.wilaya, medecin.commune, req.user.id],
+      [medecin.nomRue, medecin.wilaya, medecin.commune, req.user.id],
       (err, results) => {
         if (err) res.status(403).json({ error: err.errno });
         else res.status(201).json({ message: "success" });
@@ -505,7 +507,7 @@ export const updateProfile = (req, res) => {
       connection.query(
         query,
         [
-          medecin.nomRue	,
+          medecin.nomRue,
           medecin.wilaya,
           medecin.commune,
           medecin.latitude,
@@ -524,7 +526,7 @@ export const updateProfile = (req, res) => {
       connection.query(
         query,
         [
-          medecin.nomRue	,
+          medecin.nomRue,
           medecin.wilaya,
           medecin.commune,
           medecin.latitude,
