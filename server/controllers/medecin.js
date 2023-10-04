@@ -29,7 +29,7 @@ export const register = (req, res) => {
   try {
     var medecin = req.body;
     var query =
-      "insert into medecin values (DEFAULT,?,?,?,?,?,?,?,?,?,?,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,?,?,?,DEFAULT)";
+      "insert into medecin values (DEFAULT,?,?,?,?,?,?,?,?,?,?,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,?,?,?,DEFAULT,DEFAULT)";
     var mdp = bcrypt.hashSync(medecin.mdp, 10)
 
     connection.query(

@@ -29,7 +29,7 @@ router.get("/specialitesParamedical", async (req, res) => {
 router.post("/checkexist", async (req, res) => {
   const { numeroTelephone, table } = req.body;
   await connection.query(
-    `Select * from ${table} where telephone = ?`,
+    `Select * from ${table} where numeroTelephone = ?`,
     [numeroTelephone],
     (err, rows) => {
       if (!err) {
@@ -63,14 +63,14 @@ router.post("/medecin/register", async (req, res) => {
   const longitude = 36;
   const latitude = 3;
   await connection.query(
-    "Select * from medecin where telephone = ?",
+    "Select * from medecin where numeroTelephone = ?",
     [numeroTelephone],
     (err, rows) => {
       if (!err) {
         if (rows.length === 0) {
           const hashed_password = bcrypt.hashSync(motDePasse, 10);
           connection.query(
-            "Insert into medecin (genre,nom,prenom,date_de_naissance,telephone,mot_de_passe,nom_de_rue,wilaya_id,commune_id,specialite_id,longitude,latitude) values (?,?,?,?,?,?,?,?,?,?,?,?)",
+            "Insert into medecin (genre,nom,prenom,dateN,numeroTelephone,mot_de_passe,nom_de_rue,wilaya_id,commune_id,specialite_id,longitude,latitude) values (?,?,?,?,?,?,?,?,?,?,?,?)",
             [
               genre,
               nom,
@@ -106,14 +106,14 @@ router.post("/ambulance/register", async (req, res) => {
     req.body.professionnel;
 
   await connection.query(
-    "Select * from ambulance where telephone = ?",
+    "Select * from ambulance where numeroTelephone = ?",
     [numeroTelephone],
     (err, rows) => {
       if (!err) {
         if (rows.length === 0) {
           const hashed_password = bcrypt.hashSync(motDePasse, 10);
           connection.query(
-            "Insert into ambulance (telephone,email,mot_de_passe,nom_de_rue,wilaya_id,commune_id) values (?,?,?,?,?,?)",
+            "Insert into ambulance (numeroTelephone,email,mot_de_passe,nom_de_rue,wilaya_id,commune_id) values (?,?,?,?,?,?)",
             [
               numeroTelephone,
               email,
@@ -143,14 +143,14 @@ router.post("/pharmacie/register", async (req, res) => {
     req.body.professionnel;
 
   await connection.query(
-    "Select * from pharmacie where telephone = ?",
+    "Select * from pharmacie where numeroTelephone = ?",
     [numeroTelephone],
     (err, rows) => {
       if (!err) {
         if (rows.length === 0) {
           const hashed_password = bcrypt.hashSync(motDePasse, 10);
           connection.query(
-            "Insert into pharmacie (telephone,email,mot_de_passe,nom_de_rue,wilaya_id,commune_id) values (?,?,?,?,?,?)",
+            "Insert into pharmacie (numeroTelephone,email,mot_de_passe,nom_de_rue,wilaya_id,commune_id) values (?,?,?,?,?,?)",
             [
               numeroTelephone,
               email,
@@ -253,8 +253,8 @@ router.get("/medecin/info/:id", (req, res) => {
     medecin.duree_seance,
     medecin.tarif_video,medecin.tarif_cabinet,
     medecin.abonner_formule_1,medecin.abonner_formule_2,
-    medecin.wilaya,medecin.commune,medecin.date_de_naissance,
-    medecin.telephone,medecin.email,medecin.presentation,
+    medecin.wilaya,medecin.commune,medecin.dateN,
+    medecin.numeroTelephone,medecin.email,medecin.presentation,
     medecin.latitude,medecin.longitude,
     medecin.formations,medecin.langues_parlees,
     wilaya.nom_fr as wilaya,commune.nom_fr as commune,
