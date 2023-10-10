@@ -17,7 +17,6 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { adminGetParticuliers } from "../../actions/Admin/admin.actions";
 import { getCommunes, getWilaya } from "../../actions/user.actions";
-import NavbarAdmin from "./AdminNavbar";
 export default function Particulier() {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,20 +24,44 @@ export default function Particulier() {
   const lastCompte = currentPage * comptesPerPage;
   const indexFirstCompte = lastCompte - comptesPerPage;
   const [filterParticulier, setFilterParticulier] = useState([]);
+  const [particuliers, setParticuliers] = useState([]);
+  // const { loading, success, particuliers } = useSelector(
+  //   (state) => state.adminGetParticuliersReducer
+  // );
+  console.log('iiiiiiii');
+  const getParticuliers = async () => {
+    const response = await fetch("/api/admin/particuliers", {
+      method: "GET",
+      header: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
+    });
 
-  const { loading, success, particuliers } = useSelector(
-    (state) => state.adminGetParticuliersReducer
-  );
+    const responseJson = await response.json();
+    if (responseJson) {
+      //setLoadingWilayas(false);
+      setParticuliers(responseJson.results);
+      setFilterParticulier(responseJson.results);
+      console.log('setFilterParticulier', responseJson.results)
+    }
+  }
   useEffect(() => {
-    dispatch(adminGetParticuliers());
-  }, [dispatch]);
-  useEffect(() => {
-    if (success) setFilterParticulier(particuliers);
-  }, [success]);
+    console.log('iiiiiiii2');
+    getParticuliers();
+  }, []);
+  // useEffect(() => {
+  //   dispatch(adminGetParticuliers());
+  // }, [dispatch]);
+  // useEffect(() => {
+  //   if (success) setFilterParticulier(particuliers);
+  // }, [success]);
 
   let currentComptes = [];
-  if (success && particuliers)
+  if (particuliers.length > 0) {
+
     currentComptes = filterParticulier.slice(indexFirstCompte, lastCompte);
+  }
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   const onFilter = (wilaya, commune) => {
@@ -54,34 +77,16 @@ export default function Particulier() {
   };
   return (
     <div className="content-container">
-      <NavbarAdmin />
       <Container maxWidth="lg">
-        <Collapse in={loading}>
+        <Collapse>
           <LinearProgress color="primary" />
         </Collapse>
 
         <Card style={{ marginBottom: "30px", marginTop: "50px" }}>
-          <CardContent>
-            <FilterParticulier filter={onFilter} loading={loading} />
-          </CardContent>
+
         </Card>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          {filterParticulier.length !== 0 && (
-            <Pagination
-              size="large"
-              count={
-                filterParticulier.length !== 0
-                  ? Math.ceil(filterParticulier.length / comptesPerPage)
-                  : 0
-              }
-              page={currentPage}
-              onChange={(e, value) => paginate(value)}
-              color="primary"
-            />
-          )}
-        </div>
-        <Collapse in={success}>
-          {currentComptes.map((c, index) => (
+        <Collapse>
+          {filterParticulier.length > 0 && filterParticulier.map((c, index) => (
             <Card style={{ marginTop: "10px" }} key={index}>
               <CardContent>
                 <Typography gutterBottom={4}>
@@ -107,7 +112,7 @@ export default function Particulier() {
           ))}
         </Collapse>
 
-        <table id="table-to-xls" style={{ display: "none" }}>
+        <table id="table-to-xls" style={{ width: '100%', marginBottom: '3rem' }} >
           <tr>
             <th>Index</th>
             <th>Nom</th>
@@ -117,7 +122,7 @@ export default function Particulier() {
             <th>Wilaya</th>
             <th>Commune</th>
           </tr>
-          {filterParticulier.map((c, index) => (
+          {filterParticulier.length > 0 && filterParticulier.map((c, index) => (
             <tr key={index}>
               <td> {index + 1}</td>
               <td> {c.nom}</td>
@@ -129,7 +134,22 @@ export default function Particulier() {
             </tr>
           ))}
         </table>
-        {filterParticulier.length !== 0 && (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          {filterParticulier.length !== 0 && (
+            <Pagination
+              size="large"
+              count={
+                filterParticulier.length !== 0
+                  ? Math.ceil(filterParticulier.length / comptesPerPage)
+                  : 0
+              }
+              page={currentPage}
+              onChange={(e, value) => paginate(value)}
+              color="primary"
+            />
+          )}
+        </div>
+        {filterParticulier.length > 0 && (
           <div
             style={{
               display: "flex",
@@ -172,6 +192,10 @@ function FilterParticulier({ filter, loading }) {
     dispatch(getCommunes(wilayaId));
   }, [dispatch, wilayaId]);
 
+//   <CardContent>
+//   <FilterParticulier filter={onFilter} loading={loading} />
+// </CardContent>
+
   return (
     <div>
       <Container maxWidth="md">
@@ -179,6 +203,7 @@ function FilterParticulier({ filter, loading }) {
           Gestion comptes particuliers
         </Typography>
         <Grid container spacing={2} style={{ marginTop: "50px" }}>
+      
           <Grid item xs={12} sm={6}>
             <Typography gutterBottom={4}>Wilaya</Typography>
             <Select

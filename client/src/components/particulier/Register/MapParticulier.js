@@ -17,7 +17,7 @@ export default function MapParticulier(props) {
     props.history.push("/register/type");
   }
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: "AIzaSyAyd9MfKsyDjtn9mlB8aLD_FKTMILWTiWY",
+    googleMapsApiKey: "AIzaSyDYpCQDbGKQuXz7pADtgxrh3g7Tq14mdRg",
   });
   const onMapClick = useCallback((e) => {
     setMarker({

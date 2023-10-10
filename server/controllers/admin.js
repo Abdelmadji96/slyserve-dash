@@ -7,17 +7,18 @@ dotenv.config();
 export const login = (req, res) => {
   try {
     let admin = JSON.parse(JSON.stringify(req.body));
-    let query = "select * from admin where username = ?";
+    let query = "select * from admin where email = ?";
 
-    connection.query(query, [admin.username], function (error, results) {
+    connection.query(query, [admin.email], function (error, results) {
+      console.log('iciiii', results, admin);
       if (error) res.status(400).json({ error });
       else {
         if (results.length === 1) {
-          if (bcrypt.compareSync(admin.mdp, results[0].mot_de_passe)) {
+          if (bcrypt.compareSync(admin.mdp, results[0].mdp)) {
             res.status(201).json({
               admin: {
                 ...results[0],
-                mot_de_passe: undefined,
+                mdp: undefined,
               },
               token: jwt.sign(
                 { userId: admin.username, id: results[0].id },
@@ -43,11 +44,12 @@ export const getParticuliers = (req, res) => {
   try {
     let query = `Select particulier.nom,particulier.prenom,
     particulier.telephone,particulier.email,
-    particulier.wilaya_id,particulier.nom_de_rue,
-    particulier.commune_id,wilaya.nom_fr as wilaya,commune.nom_fr as commune
-    from particulier left join wilaya on particulier.wilaya_id = wilaya.id 
-    left join commune on particulier.commune_id = commune.id `;
+    particulier.wilaya,particulier.nomRue,
+    particulier.commune,wilaya.nom_fr as wilaya,commune.nom_fr as commune
+    from particulier left join wilaya on particulier.wilaya = wilaya.id 
+    left join commune on particulier.commune = commune.id `;
     connection.query(query, [], (err, results) => {
+      console.log('iciiiiii', err, results);
       if (err) res.status(403).json({ error: err.errno });
       else res.status(200).json({ results });
     });
@@ -62,8 +64,8 @@ export const getRDVs = (req, res) => {
     rendez_vous.heure_rdv,rendez_vous.annule,particulier.nom as nom_patient,
     particulier.prenom as prenom_patient,particulier.telephone as telephone_patient,medecin.nom as nom_medecin,
     medecin.prenom as prenom_medecin,medecin.telephone as telephone_medecin from rendez_vous
-     left join particulier on rendez_vous.patient_id = particulier.id 
-     left join medecin on rendez_vous.medecin_id = medecin.id`;
+     left join particulier on rendez_vous.patient = particulier.id 
+     left join medecin on rendez_vous.medecin = medecin.id`;
     connection.query(query, [], (err, results) => {
       if (err) res.status(403).json({ error: err });
       else res.status(200).json({ results });

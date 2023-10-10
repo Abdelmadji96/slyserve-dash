@@ -68,6 +68,10 @@ import { connect } from "react-redux";
 import Terms from "./components/Terms/Terms";
 import Policy from "./components/Policy/Policy";
 import Discover from "./components/Discover/Discover";
+import AdminRoute from "./Routes/AdminRoute";
+import AdminLogin from "./components/Admin";
+import Menu from "./components/Admin/Menu";
+import Particulier from "./components/Admin/Particulier";
 
 //import LoginProfessionnel from "../src/components/professionnel/ProfessionnelLogin/Login";
 
@@ -328,6 +332,22 @@ function App(props) {
         <Route path="/terms" exact component={Terms} />
         <Route path="/policy" exact component={Policy} />
         <Route path="/discover" exact component={Discover} />
+        <AdminRoute
+          path="/admin"
+          exact
+          isLogin
+          component={() => <AdminLogin />}
+        />
+        <AdminRoute
+          path="/admin/menu"
+          exact
+          component={() => <Menu />}
+        />
+        <AdminRoute
+          path="/admin/comptes/particuliers"
+          exact
+          component={() => <Particulier />}
+        />
       </Switch>
     </>
   );
